@@ -140,7 +140,6 @@ namespace Firefly
 
             _slowSlider.value = _slowDownStamina; 
             _slowSlider.transform.position = transform.position + new Vector3(-_slowDownStamina/2 + 0.5f, 1, 0);
-
         }
 
         public void HandleMove(InputAction.CallbackContext context)

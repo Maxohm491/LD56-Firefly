@@ -23,6 +23,11 @@ namespace Firefly
         {
             _fireflyLight = GetComponent<Light2D>();
             _fireflyLight.falloffIntensity = _falloffStrength.x;
+
+            // Make collider the same size as the light
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            collider.radius = _fireflyLight.pointLightOuterRadius;
+
             // intro animation
             DOTween.To(() => _fireflyLight.intensity, v => _fireflyLight.intensity = v, _lightIntensity.x, _flickerInterval)
                 .From(0)
