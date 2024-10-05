@@ -65,6 +65,7 @@ namespace Firefly
         private Nest _currentNest;
         [SerializeField, ReadOnly]
         private List<Nest> _activatedNests = new List<Nest>();
+        private bool _stopMove;
 
         public Transform Transform => transform;
 
@@ -99,7 +100,7 @@ namespace Firefly
             transform.Rotate(0, 0, -_turning.x * _rotationSpeed * Time.fixedDeltaTime);
 
             // do not move when not alive
-            _rigidBody.velocity = _lifeState == LifeState.Alive ?
+            _rigidBody.velocity = (_lifeState == LifeState.Alive && !_stopMove) ?
                 _linearSpeed * (_slowDown == SlowDownState.Slow ? _slowDownRatio : 1) * transform.up :
                 Vector2.zero;
 
@@ -274,11 +275,12 @@ namespace Firefly
             _turning = Vector2.zero;
             // TODO: potential animations before spawn
             // start nest selection and respawn after it
-            _lifeState = LifeState.Dead;
             _currentNest.ToggleSelection(true);
-
+            _stopMove = true;
             yield return new WaitForSeconds(.5f);
             GameplayManager.Instance.EnterMapMode();
+            _lifeState = LifeState.Dead;
+            _stopMove = false;
         }
 
         private void Respawn()
