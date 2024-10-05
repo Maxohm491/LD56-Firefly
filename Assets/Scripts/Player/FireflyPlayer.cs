@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Sirenix.OdinInspector;
@@ -13,6 +14,18 @@ namespace Firefly
         [Tooltip("Degrees/sec")]
         [SerializeField] private float _rotationSpeed = 45f;
 
+        [Tooltip("How long after slowing down before it starts recharging")]
+        [SerializeField] private float _slowCooldownTime = 0.2f;
+
+        [Tooltip("What fraction of total it recharges per second")]
+        [SerializeField] private float _slowRechargeRate = 0.5f;
+
+        [Tooltip("How fast it drains while you're slow")]
+        [SerializeField] private float _slowDrainRate = 0.5f;
+
+        [Tooltip("Fraction speed is multiplied by when slow")]
+        [SerializeField] private float _slowDownRatio = 0.2f;
+
         private Rigidbody2D _rigidBody;
 
         enum LifeState
@@ -21,6 +34,19 @@ namespace Firefly
             Alive,
             Dead,
         }
+
+        enum SlowDownState
+        {
+            Normal,
+            Cooldown,
+            Slow
+        }
+
+        private SlowDownState _slowDown = SlowDownState.Normal;
+        private float _slowCooldown;
+
+        // 0 to 1 
+        private float _slowDownStamina = 1.0f;
 
         private LifeState _lifeState = LifeState.Spawn;
 
@@ -35,6 +61,7 @@ namespace Firefly
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
+            _slowCooldown = _slowCooldownTime;
         }
 
         private void OnEnable()
@@ -57,9 +84,42 @@ namespace Firefly
             transform.Rotate(0, 0, -_turning.x * _rotationSpeed * Time.fixedDeltaTime);
 
             // do not move when not alive
-            _rigidBody.velocity = _lifeState == LifeState.Alive ? 
-                _linearSpeed * transform.up : 
+            _rigidBody.velocity = _lifeState == LifeState.Alive ?
+                _linearSpeed * (_slowDown == SlowDownState.Slow ? _slowDownRatio : 1) * transform.up :
                 Vector2.zero;
+
+            ModifySlowDown();
+        }
+
+        void ModifySlowDown()
+        {
+            switch (_slowDown)
+            {
+                case SlowDownState.Slow:
+                    _slowDownStamina -= Time.fixedDeltaTime * _slowDrainRate;
+                    if (_slowDownStamina <= 0)
+                    {
+                        _slowDown = SlowDownState.Cooldown;
+                        _slowCooldown = _slowCooldownTime;
+                    }
+                    break;
+                case SlowDownState.Normal:
+                    if (_slowDownStamina != 1)
+                    {
+                        _slowDownStamina = Math.Min(_slowDownStamina + _slowRechargeRate * Time.fixedDeltaTime, 1f);
+                    }
+                    break;
+                case SlowDownState.Cooldown:
+                    // don't recharge during cooldown
+                    _slowCooldown -= Time.fixedDeltaTime;
+                    if (_slowCooldown <= 0) 
+                    {
+                        _slowDown = SlowDownState.Normal;
+                    }
+                    break;
+            }
+
+            // TODO: stamina bar element on UI
         }
 
         public void HandleMove(InputAction.CallbackContext context)
@@ -130,6 +190,23 @@ namespace Firefly
             }
         }
 
+        public void HandleShift(InputAction.CallbackContext context)
+        {
+            // Only change slowdown if alive
+            if (_lifeState == LifeState.Alive)
+            {
+                if (context.performed && _slowDown != SlowDownState.Slow)
+                {
+                    _slowDown = SlowDownState.Slow;
+                }
+                else if (context.canceled && _slowDown == SlowDownState.Slow)
+                {
+                    _slowDown = SlowDownState.Cooldown;
+                    _slowCooldown = _slowCooldownTime;
+                }
+            }
+        }
+
         private void HandleUpdateNest(Nest newNest)
         {
             if (!_activatedNests.Contains(newNest))
@@ -177,6 +254,8 @@ namespace Firefly
             _lifeState = LifeState.Spawn;
             // go back to nest
             transform.SetPositionAndRotation(_currentNest.transform.position, _currentNest.transform.rotation);
+            _slowDown = SlowDownState.Normal;
+            _slowDownStamina = 1;
         }
 
         public void GetCaught()
