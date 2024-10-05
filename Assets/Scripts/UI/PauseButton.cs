@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Firefly
@@ -24,6 +25,7 @@ namespace Firefly
             _paused = !_paused;
             Time.timeScale = _paused ? 0 : 1;
             _icon.sprite = _paused ? _resumeSprite : _pauseSprite;
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 }
