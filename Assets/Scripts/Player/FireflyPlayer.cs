@@ -206,6 +206,7 @@ namespace Firefly
                 {
                     _lifeState = LifeState.Alive;
                     _playerFX.FlyFX.PlayFeedbacks();
+                    GameplayManager.Instance.OnPlayerRespawn.Invoke();
                     return;
                 }
                 if (_lifeState == LifeState.Dead)
