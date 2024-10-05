@@ -17,11 +17,25 @@ namespace Firefly
         [SerializeField] private float _flickerInterval;
         [SerializeField] private AnimationCurve _flickerCurve;
 
+        [SerializeField]
+        private bool _startOnAwake = true;
+
         private Light2D _fireflyLight;
 
         private void Start()
         {
             _fireflyLight = GetComponent<Light2D>();
+            _fireflyLight.falloffIntensity = _falloffStrength.x;
+            _fireflyLight.intensity = 0;
+
+            if (_startOnAwake)
+            {
+                StartLight();
+            }
+        }
+
+        public void StartLight()
+        {
             _fireflyLight.falloffIntensity = _falloffStrength.x;
             // intro animation
             DOTween.To(() => _fireflyLight.intensity, v => _fireflyLight.intensity = v, _lightIntensity.x, _flickerInterval)
