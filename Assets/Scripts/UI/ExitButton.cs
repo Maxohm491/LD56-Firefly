@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Firefly
@@ -15,6 +16,7 @@ namespace Firefly
 
         private void HandleButtonClick()
         {
+            EventSystem.current.SetSelectedGameObject(null);
             Application.Quit();
         }
     }
