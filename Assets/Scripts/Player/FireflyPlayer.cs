@@ -17,13 +17,13 @@ namespace Firefly
         [SerializeField] private float _rotationSpeed = 270f;
 
         [Tooltip("How long after slowing down before it starts recharging")]
-        [SerializeField] private float _slowCooldownTime = 0.2f;
+        [SerializeField] private float _slowCooldownTime = 0.4f;
 
         [Tooltip("What fraction of total it recharges per second")]
-        [SerializeField] private float _slowRechargeRate = 0.5f;
+        [SerializeField] private float _slowRechargeRate = 0.6f;
 
         [Tooltip("How fast it drains while you're slow")]
-        [SerializeField] private float _slowDrainRate = 0.5f;
+        [SerializeField] private float _slowDrainRate = 0.6f;
 
         [Tooltip("Fraction speed is multiplied by when slow")]
         [SerializeField] private float _slowDownRatio = 0.2f;
