@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 11364b3e57a70747000000008588c652
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lightIntensity: {x: 0.95, y: 1.05}
   _falloffStrength: {x: 0.6, y: 0.75}
-  _flickerInterval: 1
+  _flickerInterval: 2
   _flickerCurve:
     serializedVersion: 2
     m_Curve:

@@ -8,32 +8,27 @@ using UnityEngine.InputSystem;
 
 namespace Firefly
 {
-    public class FireflyManager : PassiveSingleton<FireflyManager>
+    public class FireflyBodyManager : MonoBehaviour
     {
-        public UnityEvent<Vector2> OnFireFlyDied;
-
         [SerializeField] private FireflyBody _bodyPrefab;
 
-        public override void Initialize()
-        {
-            base.Initialize();
-            OnFireFlyDied = new UnityEvent<Vector2>();
-        }
+        private List<FireflyBody> _spawnedBodies = new List<FireflyBody>();
 
         private void OnEnable()
         {
-            OnFireFlyDied.AddListener(HandleSpawnBody);
+            GameplayManager.Instance.OnFireFlyDied.AddListener(HandleSpawnBody);
         }
 
         private void OnDisable()
         {
-            OnFireFlyDied.RemoveListener(HandleSpawnBody);
+            GameplayManager.Instance.OnFireFlyDied.RemoveListener(HandleSpawnBody);
         }
 
         [Button(Expanded = true)]
         private void HandleSpawnBody(Vector2 position)
         {
-            GameObject.Instantiate(_bodyPrefab, position, Quaternion.identity);
+            var body = GameObject.Instantiate(_bodyPrefab, position, Quaternion.identity);
+            _spawnedBodies.Add(body);
         }
     }
 }

@@ -22,14 +22,22 @@ namespace Firefly
         private void Start()
         {
             _fireflyLight = GetComponent<Light2D>();
-            DOTween.To(() => _fireflyLight.intensity, v => _fireflyLight.intensity = v, _lightIntensity.y, _flickerInterval)
-                .From(_lightIntensity.x)
-                .SetEase(_flickerCurve)
-                .SetLoops(-1, LoopType.Yoyo);
-            DOTween.To(() => _fireflyLight.falloffIntensity, v => _fireflyLight.falloffIntensity = v, _falloffStrength.y, _flickerInterval)
-                .From(_falloffStrength.x)
-                .SetEase(_flickerCurve)
-                .SetLoops(-1, LoopType.Yoyo);
+            _fireflyLight.falloffIntensity = _falloffStrength.x;
+            // intro animation
+            DOTween.To(() => _fireflyLight.intensity, v => _fireflyLight.intensity = v, _lightIntensity.x, _flickerInterval)
+                .From(0)
+                .OnComplete(delegate
+                {
+                    // loop animation
+                    DOTween.To(() => _fireflyLight.intensity, v => _fireflyLight.intensity = v, _lightIntensity.y, _flickerInterval)
+                        .From(_lightIntensity.x)
+                        .SetEase(_flickerCurve)
+                        .SetLoops(-1, LoopType.Yoyo);
+                    DOTween.To(() => _fireflyLight.falloffIntensity, v => _fireflyLight.falloffIntensity = v, _falloffStrength.y, _flickerInterval)
+                        .From(_falloffStrength.x)
+                        .SetEase(_flickerCurve)
+                        .SetLoops(-1, LoopType.Yoyo);
+                });
         }
     }
 }
