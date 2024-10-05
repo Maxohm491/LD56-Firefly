@@ -2,15 +2,16 @@ using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 namespace Firefly
 {
     public class FireflyPlayer : MonoBehaviour, IEatable
     {
         [Tooltip("Units/sec")]
-        [SerializeField] private float _linearSpeed = 1f;
+        [SerializeField] private float _linearSpeed = 5f;
 
         [Tooltip("Degrees/sec")]
-        [SerializeField] private float _rotationSpeed = 45f;
+        [SerializeField] private float _rotationSpeed = 270f;
 
         [Tooltip("How long after slowing down before it starts recharging")]
         [SerializeField] private float _slowCooldownTime = 0.2f;
@@ -23,6 +24,12 @@ namespace Firefly
 
         [Tooltip("Fraction speed is multiplied by when slow")]
         [SerializeField] private float _slowDownRatio = 0.2f;
+
+        [Tooltip("Canvas that follows player prefab")]
+        [SerializeField] private GameObject _UIPrefab;
+
+        private GameObject _playerCanvas;
+        private Slider _slowSlider;
 
         private Rigidbody2D _rigidBody;
 
@@ -58,6 +65,8 @@ namespace Firefly
         {
             _rigidBody = GetComponent<Rigidbody2D>();
             _slowCooldown = _slowCooldownTime;
+            _playerCanvas = Instantiate(_UIPrefab, transform.position, Quaternion.identity);
+            _slowSlider = _playerCanvas.GetComponentInChildren<Slider>();
         }
 
         private void OnEnable()
@@ -75,6 +84,7 @@ namespace Firefly
             //Respawn();
         }
 
+
         void FixedUpdate()
         {
             transform.Rotate(0, 0, -_turning.x * _rotationSpeed * Time.fixedDeltaTime);
@@ -85,6 +95,9 @@ namespace Firefly
                 Vector2.zero;
 
             ModifySlowDown();
+
+            // Make player canvas follow player
+            _playerCanvas.transform.position = this.transform.position;
         }
 
         void ModifySlowDown()
@@ -115,7 +128,7 @@ namespace Firefly
                     break;
             }
 
-            // TODO: stamina bar element on UI
+            _slowSlider.value = _slowDownStamina;
         }
 
         public void HandleMove(InputAction.CallbackContext context)

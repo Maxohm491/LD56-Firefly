@@ -53,7 +53,9 @@ MonoBehaviour:
   _rotationSpeed: 180
   _slowCooldownTime: 0.2
   _slowRechargeRate: 0.5
+  _slowDrainRate: 0.5
   _slowDownRatio: 0.2
+  _UIPrefab: {fileID: 6220691734327170424, guid: fa01b6602524b06408ff50a06bf7f44e, type: 3}
 --- !u!114 &7465709056371901620
 MonoBehaviour:
   m_ObjectHideFlags: 0
