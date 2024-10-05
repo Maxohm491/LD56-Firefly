@@ -14,6 +14,9 @@ namespace Firefly
         [SerializeField, MinMaxSlider(0f, 1f, true)]
         private Vector2 _falloffStrength = new Vector2(0.6f, 0.75f);
 
+        [SerializeField]
+        private ContactFilter2D _contactFilter;
+
         [SerializeField] private float _flickerInterval;
         [SerializeField] private AnimationCurve _flickerCurve;
 
@@ -28,10 +31,6 @@ namespace Firefly
             _fireflyLight.falloffIntensity = _falloffStrength.x;
             _fireflyLight.intensity = 0;
 
-            // Make collider the same size as the light
-            CircleCollider2D collider = GetComponent<CircleCollider2D>();
-            collider.radius = _fireflyLight.pointLightOuterRadius;
-
             if (_startOnAwake)
             {
                 StartLight();
@@ -40,6 +39,8 @@ namespace Firefly
 
         public void StartLight()
         {
+            TriggerLightables();
+
             // intro animation
             DOTween.To(() => _fireflyLight.intensity, v => _fireflyLight.intensity = v, _lightIntensity.x, _flickerInterval)
                 .From(0)
@@ -55,6 +56,18 @@ namespace Firefly
                         .SetEase(_flickerCurve)
                         .SetLoops(-1, LoopType.Yoyo);
                 });
+        }
+
+        private void TriggerLightables() 
+        {
+            List<Collider2D> results = new();
+            Physics2D.OverlapCircle(transform.position, _fireflyLight.pointLightOuterRadius, _contactFilter, results);
+
+            foreach (Collider2D collider in results) {
+                if (collider.gameObject.TryGetComponent<Lightable>(out var target)) {
+                    target.GainedLight();
+                }
+            }
         }
     }
 }
