@@ -6,6 +6,11 @@ namespace Firefly.Utils
 {
     public static class ExtensionMethods
     {
+        public static float Dot(this Vector3 v, Vector3 u)
+        {
+            return v.x * u.x + v.y * u.y + v.z * u.z;
+        }
+
         public static Color SetAlpha(this Color c, float a)
         {
             return new Color(c.r, c.g, c.b, a);

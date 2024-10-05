@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 namespace Firefly
 {
-    public class FireflyPlayer : MonoBehaviour
+    public class FireflyPlayer : MonoBehaviour, IEatable
     {
         [Tooltip("Units/sec")]
         [SerializeField] private float _linearSpeed = 1f;
@@ -23,6 +23,8 @@ namespace Firefly
         private Vector2 _turning;
 
         private Nest _currentNest;
+
+        public Transform Transform => transform;
 
         private void OnEnable()
         {
@@ -98,11 +100,9 @@ namespace Firefly
 
         private void OnCollisionEnter2D(Collision2D col)
         {
-            Debug.Log("collide");
             // death on collision with obstacles
             if (col.gameObject.CompareTag("Obstacle"))
             {
-                Debug.Log("die");
                 Die();
             }
         }
@@ -124,6 +124,20 @@ namespace Firefly
             _lifeState = LifeState.Spawn;
             // go back to nest
             transform.position = _currentNest.transform.position;
+        }
+
+        public void GetCaught()
+        {
+            _lifeState = LifeState.Dead;
+        }
+
+        public void GetEaten()
+        {
+            // reset movement
+            _turning = Vector2.zero;
+            // TODO: potential animations before spawn
+            // _lifeStatus = LifeStatus.Dead;
+            Respawn();
         }
     }
 }

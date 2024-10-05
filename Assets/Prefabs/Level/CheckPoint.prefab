@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2518125603147398068}
   - component: {fileID: 7600414884834722175}
   m_Layer: 7
-  m_Name: SpawnManager
+  m_Name: CheckPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
