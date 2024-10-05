@@ -25,7 +25,7 @@ namespace Firefly
         {
             // always first load main menu
 #if !UNITY_EDITOR
-            SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+            SceneManager.LoadScene("LevelScene", LoadSceneMode.Additive);
 #endif
         }
 
