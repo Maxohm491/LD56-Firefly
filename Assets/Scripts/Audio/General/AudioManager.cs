@@ -11,6 +11,8 @@ namespace Firefly.Audio
 
         [field: SerializeField] public AudioMixer DefaultAudioMixer { get; private set; }
 
+        [SerializeField] private AudioClip _music;
+        [SerializeField] private AudioSource _bgmSource;
 
         [SerializeField] private AudioSourcePool _sfxSourcePool;
         public AudioSourcePool SFXSourcePool => _sfxSourcePool;
@@ -19,6 +21,12 @@ namespace Firefly.Audio
         public override void Initialize()
         {
             base.Initialize();
+        }
+
+        private void Start()
+        {
+            _bgmSource.clip = _music;
+            _bgmSource.Play();
         }
 
         public void PlayRandomSFX(SFXAsset asset, Transform source = null)

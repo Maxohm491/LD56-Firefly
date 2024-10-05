@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Firefly.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,6 +14,9 @@ namespace Firefly
         //[SerializeField]
         //private FireflyManager _fireflyManager;
 
+        [SerializeField]
+        private CinemachineVirtualCamera _mapVCam;
+
         #region Events
         /// <summary>
         /// Triggered when player dies.
@@ -22,11 +26,29 @@ namespace Firefly
         /// Triggered when a new spawn point is selected.
         /// </summary>
         public UnityEvent<Nest> OnUpdateNest { get; private set; } = new UnityEvent<Nest>();
+
+        public UnityEvent OnEnterMapMode { get; private set; } = new UnityEvent();
+        public UnityEvent OnExitMapMode { get; private set; } = new UnityEvent();
+        public UnityEvent OnPlayerRespawn { get; internal set; } = new UnityEvent();
         #endregion
 
         public override void Initialize()
         {
             //_fireflyManager.Initialize();
+        }
+
+        public void EnterMapMode()
+        {
+            // turn on map cam
+            _mapVCam.gameObject.SetActive(true);
+            OnEnterMapMode.Invoke();
+        }
+
+        public void ExitMapMode()
+        {
+            // turn off map cam
+            _mapVCam.gameObject.SetActive(false);
+            OnExitMapMode.Invoke();
         }
     }
 }

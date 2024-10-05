@@ -35,6 +35,7 @@ Transform:
   m_Children:
   - {fileID: 3890409026545673270}
   - {fileID: 3219436887631770320}
+  - {fileID: 8045076198142775945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &280698657497712093
@@ -56,6 +57,7 @@ MonoBehaviour:
   _slowDrainRate: 0.5
   _slowDownRatio: 0.2
   _UIPrefab: {fileID: 6220691734327170424, guid: fa01b6602524b06408ff50a06bf7f44e, type: 3}
+  _activatedNests: []
 --- !u!114 &7465709056371901620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +170,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
 --- !u!50 &3987149616421196801
 Rigidbody2D:
   serializedVersion: 4
@@ -196,6 +198,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &8497276420494467599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8045076198142775945}
+  m_Layer: 8
+  m_Name: FXs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8045076198142775945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497276420494467599}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6898488417574931203}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8869286456873996155
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2943446417536209134, guid: c22c8b72a6f0cb64ab1745beae1a6812, type: 3}
       propertyPath: m_PointLightOuterRadius
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5685483361345352799, guid: c22c8b72a6f0cb64ab1745beae1a6812, type: 3}
       propertyPath: m_Name

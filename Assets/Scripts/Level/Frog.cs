@@ -45,6 +45,16 @@ namespace Firefly
             _frogLight.intensity = 0;
         }
 
+        private void OnEnable()
+        {
+            GameplayManager.Instance.OnPlayerRespawn.AddListener(ResetEat);
+        }
+
+        private void OnDisable()
+        {
+            GameplayManager.Instance.OnPlayerRespawn.RemoveListener(ResetEat);
+        }
+
         private void Update()
         {
             if (_detectTimer <= 0 && !_eating)
@@ -70,6 +80,11 @@ namespace Firefly
                     }
                 }
             }
+        }
+
+        private void ResetEat()
+        {
+            _eating = false;
         }
 
         private void Eat(IEatable target)
@@ -100,7 +115,6 @@ namespace Firefly
                             // eat on animation complete
                             target.GetEaten();
                             Light();
-                            _eating = false;
                         });
                 });
         }

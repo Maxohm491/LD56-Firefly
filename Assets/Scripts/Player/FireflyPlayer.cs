@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -34,6 +36,7 @@ namespace Firefly
 
         private Rigidbody2D _rigidBody;
 
+        private PlayerFX _playerFX;
         enum LifeState
         {
             Spawn,
@@ -60,6 +63,8 @@ namespace Firefly
         private Vector2 _turning;
 
         private Nest _currentNest;
+        [SerializeField, ReadOnly]
+        private List<Nest> _activatedNests = new List<Nest>();
 
         public Transform Transform => transform;
 
@@ -69,6 +74,8 @@ namespace Firefly
             _slowCooldown = _slowCooldownTime;
             _playerCanvas = Instantiate(_UIPrefab, transform.position, Quaternion.identity);
             _slowSlider = _playerCanvas.GetComponentInChildren<Slider>();
+
+            _playerFX = GetComponentInChildren<PlayerFX>();
         }
 
 
@@ -86,7 +93,6 @@ namespace Firefly
         {
             //Respawn();
         }
-
 
         void FixedUpdate()
         {
@@ -149,10 +155,32 @@ namespace Firefly
             {
                 _turning = context.ReadValue<Vector2>();
             }
+            if (context.started && _lifeState == LifeState.Dead)
+            {
+                var select = context.ReadValue<Vector2>();
+                if (select.x > 0)
+                {
+                    SelectNest(1);
+                }
+                else if (select.x < 0)
+                {
+                    SelectNest(_activatedNests.Count - 1);
+                }
+            }
+
             if (context.canceled)
             {
                 _turning = Vector2.zero;
             }
+        }
+
+        private void SelectNest(int offset)
+        {
+            _currentNest.ToggleSelection(false);
+            var idx = _activatedNests.FindIndex(n => n == _currentNest);
+            idx = (idx + offset) % _activatedNests.Count;
+            _currentNest = _activatedNests[idx];
+            _currentNest.ToggleSelection(true);
         }
 
         public void HandleSpace(InputAction.CallbackContext context)
@@ -169,10 +197,23 @@ namespace Firefly
                 {
 
                 }
+                return;
             }
-            if (_lifeState == LifeState.Spawn)
+
+            if (context.performed)
             {
-                _lifeState = LifeState.Alive;
+                if (_lifeState == LifeState.Spawn)
+                {
+                    _lifeState = LifeState.Alive;
+                    _playerFX.FlyFX.PlayFeedbacks();
+                    return;
+                }
+                if (_lifeState == LifeState.Dead)
+                {
+                    Respawn();
+                    GameplayManager.Instance.ExitMapMode();
+                    return;
+                }
             }
         }
 
@@ -184,6 +225,7 @@ namespace Firefly
                 if (context.performed && (_slowDown == SlowDownState.Normal || _slowDown == SlowDownState.Cooldown))
                 {
                     _slowDown = SlowDownState.Slow;
+                    _playerFX.SlowFX.PlayFeedbacks();
                 }
                 else if (context.canceled && _slowDown == SlowDownState.Slow)
                 {
@@ -195,6 +237,11 @@ namespace Firefly
 
         private void HandleUpdateNest(Nest newNest)
         {
+            if (!_activatedNests.Contains(newNest))
+            {
+                _activatedNests.Add(newNest);
+            }
+
             // respawn when set first nest
             if (_currentNest == null)
             {
@@ -212,19 +259,25 @@ namespace Firefly
             // death on collision with obstacles
             if (col.gameObject.CompareTag("Obstacle"))
             {
-                Die();
+                // tell others the player dead
+                GameplayManager.Instance.OnFireFlyDied?.Invoke(transform.position);
+                _playerFX.DeathFX.PlayFeedbacks();
+                StartCoroutine(Die());
             }
         }
 
-        private void Die()
+        private IEnumerator Die()
         {
-            // tell others the player dead
-            GameplayManager.Instance.OnFireFlyDied?.Invoke(transform.position);
+            _playerFX.FlyFX.StopFeedbacks();
             // reset movement
             _turning = Vector2.zero;
             // TODO: potential animations before spawn
-            // _lifeStatus = LifeStatus.Dead;
-            Respawn();
+            // start nest selection and respawn after it
+            _lifeState = LifeState.Dead;
+            _currentNest.ToggleSelection(true);
+
+            yield return new WaitForSeconds(.5f);
+            GameplayManager.Instance.EnterMapMode();
         }
 
         private void Respawn()
@@ -240,15 +293,9 @@ namespace Firefly
         public void GetCaught()
         {
             _lifeState = LifeState.Dead;
+            _playerFX.DeathFX.PlayFeedbacks();
         }
 
-        public void GetEaten()
-        {
-            // reset movement
-            _turning = Vector2.zero;
-            // TODO: potential animations before spawn
-            // _lifeStatus = LifeStatus.Dead;
-            Respawn();
-        }
+        public void GetEaten() => StartCoroutine(Die());
     }
 }

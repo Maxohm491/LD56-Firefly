@@ -222,8 +222,8 @@ MonoBehaviour:
   _hitMask:
     serializedVersion: 2
     m_Bits: 320
-  _detectDelta: 5
-  _detectInterval: 0.5
+  _detectDelta: 3
+  _detectInterval: 0.1
   _targetLightIntensity: 1
 --- !u!114 &5140153666705227359
 MonoBehaviour:
