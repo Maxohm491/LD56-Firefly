@@ -67,6 +67,9 @@ namespace Firefly
         private List<Nest> _activatedNests = new List<Nest>();
         private bool _stopMove;
 
+        [SerializeField, ReadOnly]
+        private int _totalNestCount;
+
         public Transform Transform => transform;
 
         private void Awake()
@@ -77,6 +80,9 @@ namespace Firefly
             _slowSlider = _playerCanvas.GetComponentInChildren<Slider>();
 
             _playerFX = GetComponentInChildren<PlayerFX>();
+
+            var allNests = GameObject.FindGameObjectsWithTag("Nest");
+            _totalNestCount = allNests.Length;
         }
 
 
@@ -246,6 +252,10 @@ namespace Firefly
             if (!_activatedNests.Contains(newNest))
             {
                 _activatedNests.Add(newNest);
+                if (_activatedNests.Count >= _totalNestCount)
+                {
+                    GameplayManager.Instance.OnLevelClear.Invoke();
+                }
             }
 
             // respawn when set first nest

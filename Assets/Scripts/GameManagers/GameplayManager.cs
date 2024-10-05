@@ -29,7 +29,8 @@ namespace Firefly
 
         public UnityEvent OnEnterMapMode { get; private set; } = new UnityEvent();
         public UnityEvent OnExitMapMode { get; private set; } = new UnityEvent();
-        public UnityEvent OnPlayerRespawn { get; internal set; } = new UnityEvent();
+        public UnityEvent OnPlayerRespawn { get; private set; } = new UnityEvent();
+        public UnityEvent OnLevelClear { get; private set; } = new UnityEvent();
         #endregion
 
         public override void Initialize()
