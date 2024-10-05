@@ -51,6 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linearSpeed: 5
   _rotationSpeed: 180
+  _slowCooldownTime: 0.2
+  _slowRechargeRate: 0.5
+  _slowDownRatio: 0.2
 --- !u!114 &7465709056371901620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +111,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c1f13a2c-331a-4a1b-9099-e2828b3395e7
     m_ActionName: Player/Spawn[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 280698657497712093}
+        m_TargetAssemblyTypeName: Firefly.FireflyPlayer, Assembly-CSharp
+        m_MethodName: HandleShift
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f1c18456-49e8-4e50-8705-34616feb31c2
+    m_ActionName: Player/Slowdown[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
