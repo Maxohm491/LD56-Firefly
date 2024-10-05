@@ -257,7 +257,7 @@ namespace Firefly
             else
             {
                 _currentNest = newNest;
-            }
+            }   
         }
 
         private void OnCollisionEnter2D(Collision2D col)
