@@ -24,13 +24,13 @@ namespace Firefly
 
         private void Start()
         {
-            // Make collider the same size as the light
-            CircleCollider2D collider = GetComponent<CircleCollider2D>();
-            collider.radius = _fireflyLight.pointLightOuterRadius;
-
             _fireflyLight = GetComponent<Light2D>();
             _fireflyLight.falloffIntensity = _falloffStrength.x;
             _fireflyLight.intensity = 0;
+
+            // Make collider the same size as the light
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
+            collider.radius = _fireflyLight.pointLightOuterRadius;
 
             if (_startOnAwake)
             {
