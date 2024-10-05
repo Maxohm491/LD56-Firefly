@@ -19,7 +19,7 @@
                 {
                     "name": "2D Vector",
                     "id": "13159d4c-c8b8-4290-9c34-7bd8dbd3c6b6",
-                    "path": "2DVector(mode=2)",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -30,7 +30,7 @@
                 {
                     "name": "up",
                     "id": "69bc3eb1-f3e4-4bab-9f8d-894cddc27745",
-                    "path": "",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -41,7 +41,7 @@
                 {
                     "name": "down",
                     "id": "363f59b4-935f-4861-9ff5-e3ae6f3ed87b",
-                    "path": "",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

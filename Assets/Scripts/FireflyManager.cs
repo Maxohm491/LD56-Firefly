@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Firefly
 {
-    public class FireflyManager : MonoSingleton<FireflyManager>
+    public class FireflyManager : PassiveSingleton<FireflyManager>
     {
         public UnityEvent<Vector2> OnFireFlyDied;
 
