@@ -36,6 +36,7 @@ namespace Firefly
 
         private Rigidbody2D _rigidBody;
 
+        private PlayerFX _playerFX;
         enum LifeState
         {
             Spawn,
@@ -73,6 +74,8 @@ namespace Firefly
             _slowCooldown = _slowCooldownTime;
             _playerCanvas = Instantiate(_UIPrefab, transform.position, Quaternion.identity);
             _slowSlider = _playerCanvas.GetComponentInChildren<Slider>();
+
+            _playerFX = GetComponentInChildren<PlayerFX>();
         }
 
 
@@ -90,7 +93,6 @@ namespace Firefly
         {
             //Respawn();
         }
-
 
         void FixedUpdate()
         {
@@ -204,6 +206,7 @@ namespace Firefly
                 if (_lifeState == LifeState.Spawn)
                 {
                     _lifeState = LifeState.Alive;
+                    _playerFX.FlyFX.PlayFeedbacks();
                     return;
                 }
                 if (_lifeState == LifeState.Dead)
@@ -223,6 +226,7 @@ namespace Firefly
                 if (context.performed && (_slowDown == SlowDownState.Normal || _slowDown == SlowDownState.Cooldown))
                 {
                     _slowDown = SlowDownState.Slow;
+                    _playerFX.SlowFX.PlayFeedbacks();
                 }
                 else if (context.canceled && _slowDown == SlowDownState.Slow)
                 {
@@ -258,18 +262,22 @@ namespace Firefly
             {
                 // tell others the player dead
                 GameplayManager.Instance.OnFireFlyDied?.Invoke(transform.position);
-                Die();
+                _playerFX.DeathFX.PlayFeedbacks();
+                StartCoroutine(Die());
             }
         }
 
-        private void Die()
+        private IEnumerator Die()
         {
+            _playerFX.FlyFX.StopFeedbacks();
             // reset movement
             _turning = Vector2.zero;
             // TODO: potential animations before spawn
             // start nest selection and respawn after it
             _lifeState = LifeState.Dead;
             _currentNest.ToggleSelection(true);
+
+            yield return new WaitForSeconds(.5f);
             GameplayManager.Instance.EnterMapMode();
         }
 
@@ -286,8 +294,9 @@ namespace Firefly
         public void GetCaught()
         {
             _lifeState = LifeState.Dead;
+            _playerFX.DeathFX.PlayFeedbacks();
         }
 
-        public void GetEaten() => Die();
+        public void GetEaten() => StartCoroutine(Die());
     }
 }

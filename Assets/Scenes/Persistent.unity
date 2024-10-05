@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb494f09ac4f3d419f905052cf8bcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioManager: {fileID: 0}
+  _audioManager: {fileID: 3203262}
   <Transition>k__BackingField: {fileID: 0}
 --- !u!4 &11685078
 Transform:
