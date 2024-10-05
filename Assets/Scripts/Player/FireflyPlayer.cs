@@ -11,6 +11,8 @@ namespace Firefly
         [Tooltip("Degrees/sec")]
         [SerializeField] private float _rotationSpeed = 45f;
 
+        private Rigidbody2D _rigidBody;
+
         enum LifeState
         {
             Spawn,
@@ -25,6 +27,11 @@ namespace Firefly
         private Nest _currentNest;
 
         public Transform Transform => transform;
+
+        private void Awake()
+        {
+            _rigidBody = GetComponent<Rigidbody2D>();
+        }
 
         private void OnEnable()
         {
@@ -45,19 +52,20 @@ namespace Firefly
         {
             transform.Rotate(0, 0, -_turning.x * _rotationSpeed * Time.fixedDeltaTime);
 
-            transform.position += _linearSpeed * Time.fixedDeltaTime * transform.up
-                                    // do not move when not alive
-                                    * (_lifeState == LifeState.Alive ? 1 : 0);
+            // do not move when not alive
+            _rigidBody.velocity = _lifeState == LifeState.Alive ? 
+                _linearSpeed * transform.up : 
+                Vector2.zero;
         }
 
-        public void HandleMove(InputAction.CallbackContext context) 
+        public void HandleMove(InputAction.CallbackContext context)
         {
             // can only turn when not dead
-            if(context.started && _lifeState != LifeState.Dead)
+            if (context.started && _lifeState != LifeState.Dead)
             {
                 _turning = context.ReadValue<Vector2>();
             }
-            if(context.canceled)
+            if (context.canceled)
             {
                 _turning = Vector2.zero;
             }
@@ -81,7 +89,7 @@ namespace Firefly
             if (_lifeState == LifeState.Spawn)
             {
                 _lifeState = LifeState.Alive;
-            }    
+            }
         }
 
         private void HandleUpdateNest(Nest newNest)
@@ -123,7 +131,7 @@ namespace Firefly
             // back to spawn
             _lifeState = LifeState.Spawn;
             // go back to nest
-            transform.position = _currentNest.transform.position;
+            transform.SetPositionAndRotation(_currentNest.transform.position, _currentNest.transform.rotation);
         }
 
         public void GetCaught()
