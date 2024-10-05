@@ -16,6 +16,7 @@ namespace Firefly
 
         public override void Initialize()
         {
+            base.Initialize();
             OnFireFlyDied = new UnityEvent<Vector2>();
         }
 
