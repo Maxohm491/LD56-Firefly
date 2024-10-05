@@ -13,11 +13,13 @@ namespace Firefly {
         {
             FireflyManager.Instance.OnFireFlyDied?.AddListener(SpawnFirefly);
             
+            // TODO: should not die at the beginning
+            //       instead directly spawn one
             // Temp
-            FireflyManager.Instance.OnFireFlyDied?.Invoke();
+            FireflyManager.Instance.OnFireFlyDied?.Invoke(transform.position);
         }
 
-        void SpawnFirefly() {
+        void SpawnFirefly(Vector2 _) {
             Instantiate(_fireflyPrefab, _spawnPoint.position, _spawnPoint.rotation);
         }
 
