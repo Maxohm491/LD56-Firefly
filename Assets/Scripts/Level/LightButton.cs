@@ -5,44 +5,15 @@ using UnityEngine.Events;
 namespace Firefly
 {
     [Serializable]
-    public class LightButtonEvent : UnityEvent<LightButton.ButtonState> { }
+    public class LightButtonEvent : UnityEvent<Lightable.LightState> { }
 
-    public class LightButton : MonoBehaviour
+    public class LightButton : Lightable
     {
-        public enum ButtonState
-        {
-            HasLight,
-            NoLight
-        }
-
-        private int _nearLights = 0;
-
         public LightButtonEvent OnButtonChange = new LightButtonEvent();
 
-        void OnTriggerEnter2D(Collider2D col)
+        protected override void LightStateChange(LightState newState)
         {
-            if (col.CompareTag("Light"))
-            {
-                if (_nearLights == 0)
-                {
-                    OnButtonChange.Invoke(ButtonState.HasLight);
-                }
-                _nearLights++;
-            }
+            OnButtonChange.Invoke(newState);
         }
-
-        void OnTriggerExit2D(Collider2D col)
-        {
-
-            if (col.CompareTag("Light"))
-            {
-                _nearLights--;
-                if (_nearLights == 0)
-                {
-                    OnButtonChange.Invoke(ButtonState.NoLight);
-                }
-            }
-        }
-
     }
 }

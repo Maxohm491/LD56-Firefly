@@ -24,19 +24,16 @@ namespace Firefly
             _dotween = GetComponentInChildren<DOTweenPath>();
         }
 
-        public void HandleButtonEvent(LightButton.ButtonState state)
+        public void HandleButtonEvent(Lightable.LightState state)
         {
-            if (state == LightButton.ButtonState.HasLight)
+            if (state == Lightable.LightState.HasLight)
             {
-                Debug.Log("playing");
                 _dotween.DOPlayForward();
             }
-            else if (state == LightButton.ButtonState.NoLight)
+            else if (state == Lightable.LightState.NoLight)
             {
                 if (_movementType == MovementType.Rewind)
                 {
-                    Debug.Log("rewinding");
-                    // _dotween.DOFlip();
                     _dotween.DOPlayBackwards();
 
                 }
