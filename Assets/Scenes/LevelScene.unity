@@ -5114,6 +5114,8 @@ MonoBehaviour:
   <DeathFX>k__BackingField: {fileID: 1614474601}
   <SlowFX>k__BackingField: {fileID: 557801462}
   <FlyFX>k__BackingField: {fileID: 142458137}
+  <ZoomOutFX>k__BackingField: {fileID: 0}
+  <ZoomInFX>k__BackingField: {fileID: 0}
 --- !u!1001 &4244544494046806846
 PrefabInstance:
   m_ObjectHideFlags: 0
