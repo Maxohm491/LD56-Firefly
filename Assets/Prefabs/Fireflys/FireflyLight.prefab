@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4166213621444053804}
   - component: {fileID: 7677290588989619474}
   - component: {fileID: 4495085496112882122}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: FireflyLight
   m_TagString: Light
   m_Icon: {fileID: 0}
@@ -124,6 +124,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _startOnAwake: 1
 --- !u!58 &7677290588989619474
 CircleCollider2D:
   m_ObjectHideFlags: 0

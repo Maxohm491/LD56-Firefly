@@ -94,6 +94,11 @@ namespace Firefly
             //Respawn();
         }
 
+        private void Update()
+        {
+            ModifySlowDown();
+        }
+
         void FixedUpdate()
         {
             transform.Rotate(0, 0, -_turning.x * _rotationSpeed * Time.fixedDeltaTime);
@@ -102,8 +107,6 @@ namespace Firefly
             _rigidBody.velocity = _lifeState == LifeState.Alive ?
                 _linearSpeed * (_slowDown == SlowDownState.Slow ? _slowDownRatio : 1) * transform.up :
                 Vector2.zero;
-
-            ModifySlowDown();
 
             _playerCanvas.transform.position = this.transform.position;
         }
@@ -128,7 +131,7 @@ namespace Firefly
                 case SlowDownState.Cooldown:
                     // don't recharge during cooldown
                     _slowCooldown -= Time.fixedDeltaTime;
-                    if (_slowCooldown <= 0) 
+                    if (_slowCooldown <= 0)
                     {
                         _slowDown = SlowDownState.Normal;
                     }
@@ -138,14 +141,15 @@ namespace Firefly
                     {
                         _slowDownStamina = Math.Min(_slowDownStamina + _slowRechargeRate * Time.fixedDeltaTime, 1f);
                     }
-                    else {
+                    else
+                    {
                         _slowDown = SlowDownState.Normal;
                     }
                     break;
             }
 
-            _slowSlider.value = _slowDownStamina; 
-            _slowSlider.transform.position = transform.position + new Vector3(-_slowDownStamina/2 + 0.5f, 1, 0);
+            _slowSlider.value = _slowDownStamina;
+            _slowSlider.transform.position = transform.position + new Vector3(-_slowDownStamina / 2 + 0.5f, 1, 0);
         }
 
         public void HandleMove(InputAction.CallbackContext context)
