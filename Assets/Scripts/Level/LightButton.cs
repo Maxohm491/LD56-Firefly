@@ -1,41 +1,48 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LightButton : MonoBehaviour
+namespace Firefly
 {
-    public enum ButtonState
+    [Serializable]
+    public class LightButtonEvent : UnityEvent<LightButton.ButtonState> { }
+
+    public class LightButton : MonoBehaviour
     {
-        HasLight,
-        NoLight
-    }
-
-    private int _nearLights = 0;
-
-    public UnityEvent<ButtonState> OnButtonChange { get; private set; } = new UnityEvent<ButtonState>();
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.CompareTag("Light"))
+        public enum ButtonState
         {
-            if (_nearLights == 0)
-            {
-                OnButtonChange.Invoke(ButtonState.HasLight);
-            }
-            _nearLights++;
+            HasLight,
+            NoLight
         }
-    }
 
-    void OnTriggerExit2D(Collider2D col)
-    {
+        private int _nearLights = 0;
 
-        if (col.CompareTag("Light"))
+        public LightButtonEvent OnButtonChange = new LightButtonEvent();
+
+        void OnTriggerEnter2D(Collider2D col)
         {
-            _nearLights--;
-            if (_nearLights == 0)
+            if (col.CompareTag("Light"))
             {
-                OnButtonChange.Invoke(ButtonState.NoLight);
+                if (_nearLights == 0)
+                {
+                    OnButtonChange.Invoke(ButtonState.HasLight);
+                }
+                _nearLights++;
             }
         }
-    }
 
+        void OnTriggerExit2D(Collider2D col)
+        {
+
+            if (col.CompareTag("Light"))
+            {
+                _nearLights--;
+                if (_nearLights == 0)
+                {
+                    OnButtonChange.Invoke(ButtonState.NoLight);
+                }
+            }
+        }
+
+    }
 }
