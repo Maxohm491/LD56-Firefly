@@ -20,6 +20,10 @@ namespace Firefly
         private void Awake()
         {
             _activated = _initiallyActivated;
+        }
+
+        private void Start()
+        {
             // initially activated spawn points
             if (_activated)
             {

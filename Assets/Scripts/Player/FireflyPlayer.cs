@@ -36,7 +36,7 @@ namespace Firefly
 
         private void Start()
         {
-            Respawn();
+            //Respawn();
         }
 
         void FixedUpdate()
@@ -84,7 +84,16 @@ namespace Firefly
 
         private void HandleUpdateNest(Nest newNest)
         {
-            _currentNest = newNest;
+            // respawn when set first nest
+            if (_currentNest == null)
+            {
+                _currentNest = newNest;
+                Respawn();
+            }
+            else
+            {
+                _currentNest = newNest;
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D col)
