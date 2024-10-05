@@ -9,7 +9,7 @@ namespace Firefly
 {
     public class FireflyLight : MonoBehaviour
     {
-        [SerializeField, MinMaxSlider(.5f, 1.5f, true)]
+        [SerializeField, MinMaxSlider(.5f, 5f, true)]
         private Vector2 _lightIntensity = new Vector2(0.95f, 1.05f);
         [SerializeField, MinMaxSlider(0f, 1f, true)]
         private Vector2 _falloffStrength = new Vector2(0.6f, 0.75f);

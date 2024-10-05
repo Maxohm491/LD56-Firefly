@@ -94,14 +94,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2943446417536209134, guid: c22c8b72a6f0cb64ab1745beae1a6812, type: 3}
-      propertyPath: m_Color.b
-      value: 0.5377357
-      objectReference: {fileID: 0}
-    - target: {fileID: 2943446417536209134, guid: c22c8b72a6f0cb64ab1745beae1a6812, type: 3}
-      propertyPath: m_Color.g
-      value: 0.8833702
-      objectReference: {fileID: 0}
-    - target: {fileID: 2943446417536209134, guid: c22c8b72a6f0cb64ab1745beae1a6812, type: 3}
       propertyPath: m_FalloffIntensity
       value: 0.65
       objectReference: {fileID: 0}

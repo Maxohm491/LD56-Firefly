@@ -51,8 +51,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.8791043, b: 0.51257855, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.81506705, b: 0.53144646, a: 1}
+  m_Intensity: 3
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 11364b3e57a70747000000008588c652
@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4587818f81aa4724085bbb1d5fa9ffc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lightIntensity: {x: 0.95, y: 1.05}
-  _falloffStrength: {x: 0.6, y: 0.75}
+  _lightIntensity: {x: 1.5, y: 3}
+  _falloffStrength: {x: 0.5, y: 0.75}
   _flickerInterval: 2
   _flickerCurve:
     serializedVersion: 2
