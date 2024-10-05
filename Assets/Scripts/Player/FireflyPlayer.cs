@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Sirenix.OdinInspector;
@@ -46,7 +47,8 @@ namespace Firefly
         {
             Normal,
             Cooldown,
-            Slow
+            Slow,
+            Emptied
         }
 
         private SlowDownState _slowDown = SlowDownState.Normal;
@@ -72,6 +74,7 @@ namespace Firefly
             _playerCanvas = Instantiate(_UIPrefab, transform.position, Quaternion.identity);
             _slowSlider = _playerCanvas.GetComponentInChildren<Slider>();
         }
+
 
         private void OnEnable()
         {
@@ -100,7 +103,6 @@ namespace Firefly
 
             ModifySlowDown();
 
-            // Make player canvas follow player
             _playerCanvas.transform.position = this.transform.position;
         }
 
@@ -112,8 +114,7 @@ namespace Firefly
                     _slowDownStamina -= Time.fixedDeltaTime * _slowDrainRate;
                     if (_slowDownStamina <= 0)
                     {
-                        _slowDown = SlowDownState.Cooldown;
-                        _slowCooldown = _slowCooldownTime;
+                        _slowDown = SlowDownState.Emptied;
                     }
                     break;
                 case SlowDownState.Normal:
@@ -130,9 +131,20 @@ namespace Firefly
                         _slowDown = SlowDownState.Normal;
                     }
                     break;
+                case SlowDownState.Emptied:
+                    if (_slowDownStamina != 1)
+                    {
+                        _slowDownStamina = Math.Min(_slowDownStamina + _slowRechargeRate * Time.fixedDeltaTime, 1f);
+                    }
+                    else {
+                        _slowDown = SlowDownState.Normal;
+                    }
+                    break;
             }
 
-            _slowSlider.value = _slowDownStamina;
+            _slowSlider.value = _slowDownStamina; 
+            _slowSlider.transform.position = transform.position + new Vector3(-_slowDownStamina/2 + 0.5f, 1, 0);
+
         }
 
         public void HandleMove(InputAction.CallbackContext context)
@@ -208,7 +220,7 @@ namespace Firefly
             // Only change slowdown if alive
             if (_lifeState == LifeState.Alive)
             {
-                if (context.performed && _slowDown != SlowDownState.Slow)
+                if (context.performed && (_slowDown == SlowDownState.Normal || _slowDown == SlowDownState.Cooldown))
                 {
                     _slowDown = SlowDownState.Slow;
                 }
