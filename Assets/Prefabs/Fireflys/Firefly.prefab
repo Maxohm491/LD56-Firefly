@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6898488417574931203}
   - component: {fileID: 38099766876395911}
   - component: {fileID: 280698657497712093}
-  - component: {fileID: 1264928425047281783}
   - component: {fileID: 7465709056371901620}
   - component: {fileID: 1682780552919546480}
   - component: {fileID: 3987149616421196801}
@@ -103,18 +102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linearSpeed: 5
   _rotationSpeed: 180
---- !u!114 &1264928425047281783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833575672476383876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea3560487481c23499b238811aa3a6ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7465709056371901620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +143,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b9208538-7cdf-4392-bd0f-9f76575e3d3c
     m_ActionName: Player/Move[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c1f13a2c-331a-4a1b-9099-e2828b3395e7
+    m_ActionName: Player/Spawn[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

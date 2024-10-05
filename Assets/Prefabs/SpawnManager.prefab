@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 0}
-  _fireflyPrefab: {fileID: 0}
+  _fireflyPrefab: {fileID: 833575672476383876, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
 --- !u!114 &1908199123107223872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +73,10 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b9208538-7cdf-4392-bd0f-9f76575e3d3c
+    m_ActionName: Player/Move[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2518125603147398068}
         m_TargetAssemblyTypeName: Firefly.SpawnManager, Assembly-CSharp
@@ -86,8 +90,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: b9208538-7cdf-4392-bd0f-9f76575e3d3c
-    m_ActionName: Player/Move[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]
+    m_ActionId: c1f13a2c-331a-4a1b-9099-e2828b3395e7
+    m_ActionName: Player/Spawn[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
