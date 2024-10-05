@@ -1,27 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Firefly.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Firefly
 {
-    public class FireflyManager : MonoBehaviour
+    public class FireflyManager : MonoSingleton<FireflyManager>
     {
-        public static FireflyManager Instance { get; private set; }
-
         public UnityEvent OnFireFlyDied;
 
-        private void Awake()
+        public override void Initialize()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(this);
-            }
-            else
-            {
-                Instance = this;
-                OnFireFlyDied = new UnityEvent();
-            }
+            OnFireFlyDied = new UnityEvent();
         }
     }
 }
