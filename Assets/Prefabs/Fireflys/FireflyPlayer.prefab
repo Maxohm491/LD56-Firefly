@@ -56,6 +56,7 @@ MonoBehaviour:
   _slowDrainRate: 0.5
   _slowDownRatio: 0.2
   _UIPrefab: {fileID: 6220691734327170424, guid: fa01b6602524b06408ff50a06bf7f44e, type: 3}
+  _activatedNests: []
 --- !u!114 &7465709056371901620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +169,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
 --- !u!50 &3987149616421196801
 Rigidbody2D:
   serializedVersion: 4
