@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Toggle Light",
+                    "type": "Button",
+                    "id": "bdbf1c0a-97b7-43f3-966b-36afbd4faaeb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -158,11 +167,33 @@
                 {
                     "name": "",
                     "id": "b60c28f0-a7cf-4910-80ed-69c269546732",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Slowdown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec4222a5-9110-4f5e-8ca2-754f3d33791f",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slowdown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c352a0b-a3b6-4442-a5eb-6b31777b16d1",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Light",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

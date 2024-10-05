@@ -74,8 +74,10 @@ namespace Firefly
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject.TryGetComponent<IEatable>(out var target))
-                    {
-                        Eat(target);
+                    {   
+                        if(target.Eatable) {
+                            Eat(target);
+                        }
                         break;
                     }
                 }

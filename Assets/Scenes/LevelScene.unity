@@ -19635,53 +19635,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 280698657497712093, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: _rotationSpeed
-      value: 270
-      objectReference: {fileID: 0}
-    - target: {fileID: 280698657497712093, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: _slowDrainRate
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 280698657497712093, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: _slowCooldownTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 280698657497712093, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: _slowRechargeRate
-      value: 0.6
-      objectReference: {fileID: 0}
     - target: {fileID: 833575672476383876, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
       propertyPath: m_Name
       value: FireflyPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 833575672476383876, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040546762997354862, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3863214070411185207, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4978737578393604461, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6813152327483718409, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6813152327483718409, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_Color.g
-      value: 0.7333517
-      objectReference: {fileID: 0}
-    - target: {fileID: 6813152327483718409, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_Color.r
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6898488417574931203, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19723,41 +19679,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7041419895480654802, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8841677822965369532, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8841677822965369532, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_TagString
-      value: Light
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869286456873996155, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869286456873996155, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8951075568881496055, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 9046924574062679313, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9046924574062679313, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 8869286456873996155, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfd7394d39dbc5a47a8154f9201c4a8b, type: 3}

@@ -31,6 +31,7 @@ namespace Firefly
         [Tooltip("Canvas that follows player prefab")]
         [SerializeField] private GameObject _UIPrefab;
 
+        private GameObject _light;
         private GameObject _playerCanvas;
         private Slider _slowSlider;
 
@@ -52,6 +53,7 @@ namespace Firefly
             Emptied
         }
 
+
         private SlowDownState _slowDown = SlowDownState.Normal;
         private float _slowCooldown;
 
@@ -72,12 +74,17 @@ namespace Firefly
 
         public Transform Transform => transform;
 
+        private bool _lightOn = true;
+
+        bool IEatable.Eatable { get { return _lightOn; } }
+
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
             _slowCooldown = _slowCooldownTime;
             _playerCanvas = Instantiate(_UIPrefab, transform.position, Quaternion.identity);
             _slowSlider = _playerCanvas.GetComponentInChildren<Slider>();
+            _light = GetComponentInChildren<FireflyLight>().gameObject;
 
             _playerFX = GetComponentInChildren<PlayerFX>();
 
@@ -194,23 +201,9 @@ namespace Firefly
             _currentNest.ToggleSelection(true);
         }
 
+
         public void HandleSpace(InputAction.CallbackContext context)
         {
-            if (_lifeState == LifeState.Alive)
-            {
-                // TODO: hide light
-                if (context.performed)
-                {
-
-                }
-                // TODO: show light
-                else
-                {
-
-                }
-                return;
-            }
-
             if (context.performed)
             {
                 if (_lifeState == LifeState.Spawn)
@@ -229,7 +222,16 @@ namespace Firefly
             }
         }
 
-        public void HandleShift(InputAction.CallbackContext context)
+        public void HandleToggleLight(InputAction.CallbackContext context)
+        {
+            if (_lifeState == LifeState.Alive)
+            {
+                _lightOn = !context.performed;
+                _light.SetActive(_lightOn);
+            }
+        }
+
+        public void HandleSlowDownKey(InputAction.CallbackContext context) 
         {
             // Only change slowdown if alive
             if (_lifeState == LifeState.Alive)
