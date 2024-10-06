@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Firefly.Utils;
@@ -31,7 +32,7 @@ namespace Firefly
         [Button(Expanded = true)]
         private void HandleSpawnBody(Vector2 position)
         {
-            var ipos = new Vector2Int((int)(position.x / _gridSize.x), (int)(position.y / _gridSize.y));
+            var ipos = new Vector2Int((int) Math.Round(position.x / _gridSize.x, 0), (int)Math.Round(position.y / _gridSize.y, 0));
             if (_occupiedPos.Contains(ipos)) return;
 
             _occupiedPos.Add(ipos);
