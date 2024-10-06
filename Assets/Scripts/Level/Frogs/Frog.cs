@@ -31,6 +31,7 @@ namespace Firefly
         private bool _eating;
 
         private LineRenderer _lineRend;
+        private RotateFrog _rotateBody;
 
         private bool InFrontOf(Vector3 position) =>
             (position - transform.position).Dot(transform.up) >= _detectRange * (position - transform.position).magnitude;
@@ -43,6 +44,8 @@ namespace Firefly
 
             _frogLight = GetComponent<Light2D>();
             _frogLight.intensity = 0;
+
+            _rotateBody = GetComponentInChildren<RotateFrog>();
         }
 
         private void OnEnable()
@@ -69,7 +72,7 @@ namespace Firefly
         {
             for (float delta = -_detectRange; delta <= _detectRange; delta += _detectDelta)
             {
-                var dir = Quaternion.Euler(0, 0, delta) * transform.up;
+                var dir = Quaternion.Euler(0, 0, delta) * (_rotateBody?.transform?.up ?? transform.up);
                 var hit = Physics2D.Raycast(transform.position, dir, _detectRadius, _hitMask);
                 if (hit.collider != null)
                 {
@@ -140,7 +143,7 @@ namespace Firefly
             Gizmos.color = Color.blue;
             for (float delta = -_detectRange; delta <= _detectRange; delta += _detectDelta)
             {
-                var dir = Quaternion.Euler(0, 0, delta) * transform.up;
+                var dir = Quaternion.Euler(0, 0, delta) * (_rotateBody?.transform?.up ?? transform.up);
                 Gizmos.DrawLine(transform.position, transform.position + dir * _detectRadius);
             }
         }
