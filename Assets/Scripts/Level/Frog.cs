@@ -101,7 +101,9 @@ namespace Firefly
             {
                 tongueEnd = v;
                 // local space
+                _lineRend.SetPosition(0, transform.position);
                 _lineRend.SetPosition(1, tongueEnd);
+
             }, target.Transform.position, .2f)
                 .OnComplete(delegate
                 {
@@ -110,6 +112,7 @@ namespace Firefly
                     {
                         tongueEnd = v;
                         // local space
+                        _lineRend.SetPosition(0, transform.position);
                         _lineRend.SetPosition(1, tongueEnd);
                         target.Transform.position = tongueEnd;
                     }, transform.position, .2f)
