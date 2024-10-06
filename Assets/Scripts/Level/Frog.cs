@@ -96,6 +96,7 @@ namespace Firefly
             target.GetCaught();
             Vector3 tongueEnd = transform.position;
             // tongue shoot animation
+            _lineRend.SetPosition(0, transform.position);
             DOTween.To(() => tongueEnd, v =>
             {
                 tongueEnd = v;
@@ -116,6 +117,8 @@ namespace Firefly
                         {
                             // eat on animation complete
                             target.GetEaten();
+                            _lineRend.SetPosition(0, transform.position);
+                            _lineRend.SetPosition(1, transform.position);
                             Light();
                         });
                 });
