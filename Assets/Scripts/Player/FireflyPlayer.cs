@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using MoreMountains.Feedbacks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -134,6 +135,8 @@ namespace Firefly
                     if (_slowDownStamina <= 0)
                     {
                         _slowDown = SlowDownState.Emptied;
+                        _playerFX.SlowFX.StopFeedbacks();
+                        _playerFX.FlyFX.PlayFeedbacks();
                     }
                     break;
                 case SlowDownState.Normal:
@@ -210,6 +213,7 @@ namespace Firefly
                 {
                     _lifeState = LifeState.Alive;
                     _playerFX.FlyFX.PlayFeedbacks();
+                    
                     GameplayManager.Instance.OnPlayerRespawn.Invoke();
                     return;
                 }
@@ -239,11 +243,14 @@ namespace Firefly
                 if (context.performed && (_slowDown == SlowDownState.Normal || _slowDown == SlowDownState.Cooldown))
                 {
                     _slowDown = SlowDownState.Slow;
-                    _playerFX.SlowFX.PlayFeedbacks();
+                    _playerFX.FlyFX.StopFeedbacks();
+                    _playerFX.SlowFlyFX.PlayFeedbacks();
                 }
                 else if (context.canceled && _slowDown == SlowDownState.Slow)
                 {
                     _slowDown = SlowDownState.Cooldown;
+                    _playerFX.SlowFlyFX.StopFeedbacks();
+                    _playerFX.FlyFX.PlayFeedbacks();
                     _slowCooldown = _slowCooldownTime;
                 }
             }
@@ -287,6 +294,7 @@ namespace Firefly
         private IEnumerator Die()
         {
             _playerFX.FlyFX.StopFeedbacks();
+            _playerFX.SlowFlyFX.StopFeedbacks();
             // reset movement
             _turning = Vector2.zero;
             // TODO: potential animations before spawn

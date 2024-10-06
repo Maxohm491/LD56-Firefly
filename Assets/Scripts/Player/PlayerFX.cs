@@ -8,9 +8,10 @@ namespace Firefly
 {
     public class PlayerFX : MonoBehaviour
     {
-        [field:SerializeField] public MMF_Player DeathFX { get; private set; }
+        [field: SerializeField] public MMF_Player DeathFX { get; private set; }
         [field: SerializeField] public MMF_Player SlowFX { get; private set; }
         [field: SerializeField] public MMF_Player FlyFX { get; private set; }
+        [field: SerializeField] public MMF_Player SlowFlyFX { get; private set; }
         [field: SerializeField] public MMF_Player ZoomOutFX { get; private set; }
         [field: SerializeField] public MMF_Player ZoomInFX { get; private set; }
 
