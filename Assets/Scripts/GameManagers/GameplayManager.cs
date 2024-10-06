@@ -40,6 +40,9 @@ namespace Firefly
 
         public void EnterMapMode()
         {
+            // prevent reentrancy
+            if (_mapVCam.gameObject.activeSelf) return;
+
             // turn on map cam
             _mapVCam.gameObject.SetActive(true);
             OnEnterMapMode.Invoke();
@@ -47,6 +50,9 @@ namespace Firefly
 
         public void ExitMapMode()
         {
+            // prevent reentrancy
+            if (!_mapVCam.gameObject.activeSelf) return;
+
             // turn off map cam
             _mapVCam.gameObject.SetActive(false);
             OnExitMapMode.Invoke();

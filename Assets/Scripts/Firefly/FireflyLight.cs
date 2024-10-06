@@ -25,9 +25,13 @@ namespace Firefly
 
         private Light2D _fireflyLight;
 
-        private void Start()
+        private void Awake()
         {
             _fireflyLight = GetComponent<Light2D>();
+        }
+
+        private void Start()
+        {
             _fireflyLight.falloffIntensity = _falloffStrength.x;
             _fireflyLight.intensity = 0;
 

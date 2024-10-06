@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Firefly.Utils;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -16,10 +17,17 @@ namespace Firefly
 
         private bool _mapUIEnable = false;
 
+        [SerializeField, ReadOnly]
+        private List<Nest> _activatedNests = new List<Nest>();
+        private int _totalNestCount;
+
         private void Awake()
         {
-            _levelClearText.color = _levelClearText.color.SetAlpha(0);
+            //_levelClearText.color = _levelClearText.color.SetAlpha(0);
             _mapUIGroup.alpha = 0;
+
+            var allNests = GameObject.FindGameObjectsWithTag("Nest");
+            _totalNestCount = allNests.Length;
         }
 
         private void OnEnable()
@@ -28,6 +36,8 @@ namespace Firefly
             GameplayManager.Instance.OnEnterMapMode.AddListener(ToggleMenuUI);
             GameplayManager.Instance.OnExitMapMode.AddListener(ToggleMenuUI);
             GameplayManager.Instance.OnPlayerRespawn.AddListener(HideSpawnUI);
+
+            GameplayManager.Instance.OnUpdateNest.AddListener(RecordNest);
         }
 
         private void OnDisable()
@@ -36,6 +46,25 @@ namespace Firefly
             GameplayManager.Instance.OnEnterMapMode.RemoveListener(ToggleMenuUI);
             GameplayManager.Instance.OnExitMapMode.RemoveListener(ToggleMenuUI);
             GameplayManager.Instance.OnPlayerRespawn.RemoveListener(HideSpawnUI);
+
+            GameplayManager.Instance.OnUpdateNest.RemoveListener(RecordNest);
+        }
+
+        private void RecordNest(Nest nest)
+        {
+            if (_activatedNests.Contains(nest)) return;
+            _activatedNests.Add(nest);
+
+            if (_activatedNests.Count < _totalNestCount)
+            {
+                _levelClearText.text = $"Nests found: {_activatedNests.Count}/{_totalNestCount}";
+
+            }
+            else
+            {
+                _levelClearText.text = "All nests found!";
+
+            }
         }
 
         private void HideSpawnUI()
@@ -45,7 +74,10 @@ namespace Firefly
 
         private void DisplayClearText()
         {
-            _levelClearText.DOFade(1, 1f);
+            //_levelClearText.DOFade(1, 1f);
+            _levelClearText.text = "All nests found!";
+            var anim = _levelClearText.gameObject.GetComponent<DOTweenAnimation>();
+            anim.DOPlay();
         }
 
         private void ToggleMenuUI()

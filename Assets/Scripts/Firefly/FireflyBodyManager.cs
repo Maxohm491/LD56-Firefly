@@ -37,7 +37,7 @@ namespace Firefly
 
             _occupiedPos.Add(ipos);
 
-            var body = GameObject.Instantiate(_bodyPrefab, position, Quaternion.identity);
+            var body = GameObject.Instantiate(_bodyPrefab, position, Quaternion.identity, transform);
             _spawnedBodies.Add(body);
         }
     }
