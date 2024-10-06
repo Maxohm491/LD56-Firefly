@@ -607,7 +607,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"14e8e4c919881cb45abff24543aeb33c\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -647,7 +647,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": false,
+    "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -950,7 +950,7 @@
     "m_ShaderOutputName": "Edge",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 0.009999999776482582,
+        "x": 0.9900000095367432,
         "y": 1.0,
         "z": 1.0,
         "w": 1.0
@@ -1204,10 +1204,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 720.7999877929688,
-            "y": -126.39999389648438,
-            "width": 120.79998779296875,
-            "height": 76.79998779296875
+            "x": 762.2857055664063,
+            "y": -126.85714721679688,
+            "width": 107.4285888671875,
+            "height": 78.28573608398438
         }
     },
     "m_Slots": [

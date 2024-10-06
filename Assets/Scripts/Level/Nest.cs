@@ -25,6 +25,8 @@ namespace Firefly
 
         private FireflyLight _nestLight;
 
+        private Animator _nestAnim;
+
         public bool Activated
         {
             get => _activated;
@@ -35,6 +37,8 @@ namespace Firefly
                 _activated = value;
                 if (_activated)
                 {
+                    // start animation
+                    _nestAnim.SetBool("activated", _activated);
                     // turn on nest light
                     _nestLight.StartLight();
                     // propgate nest info
@@ -46,6 +50,7 @@ namespace Firefly
         private void Awake()
         {
             _nestLight = GetComponentInChildren<FireflyLight>();
+            _nestAnim = GetComponentInChildren<Animator>();
 
             _selectionIcon.color = _selectionIcon.color.SetAlpha(0);
         }
