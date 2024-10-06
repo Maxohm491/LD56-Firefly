@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using DG.Tweening;
 using MoreMountains.Feedbacks;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace Firefly
 
         private GameObject _light;
         private GameObject _playerCanvas;
+        private CanvasGroup _uiGroup;
         private Slider _slowSlider;
 
         private Rigidbody2D _rigidBody;
@@ -77,6 +79,8 @@ namespace Firefly
 
         private bool _lightOn = true;
 
+        private SpriteRenderer _spriteRend;
+
         bool IEatable.Eatable { get { return _lightOn; } }
 
         private void Awake()
@@ -84,6 +88,8 @@ namespace Firefly
             _rigidBody = GetComponent<Rigidbody2D>();
             _slowCooldown = _slowCooldownTime;
             _playerCanvas = Instantiate(_UIPrefab, transform.position, Quaternion.identity);
+            _uiGroup = _playerCanvas.GetComponent<CanvasGroup>();
+
             _slowSlider = _playerCanvas.GetComponentInChildren<Slider>();
             _light = GetComponentInChildren<FireflyLight>().gameObject;
 
@@ -91,6 +97,8 @@ namespace Firefly
 
             var allNests = GameObject.FindGameObjectsWithTag("Nest");
             _totalNestCount = allNests.Length;
+
+            _spriteRend = GetComponentInChildren<SpriteRenderer>();
         }
 
 
@@ -284,15 +292,24 @@ namespace Firefly
             // death on collision with obstacles
             if (col.gameObject.CompareTag("Obstacle"))
             {
-                // tell others the player dead
-                GameplayManager.Instance.OnFireFlyDied?.Invoke(transform.position);
                 _playerFX.DeathFX.PlayFeedbacks();
                 StartCoroutine(Die());
+                Invoke(nameof(PlantFlower), .2f);
             }
+        }
+
+        private void PlantFlower()
+        {
+            // tell others the player dead
+            GameplayManager.Instance.OnFireFlyDied?.Invoke(transform.position);
         }
 
         private IEnumerator Die()
         {
+            // fade out
+            _spriteRend.DOFade(0, .2f);
+            _uiGroup.DOFade(0, .2f);
+
             _playerFX.FlyFX.StopFeedbacks();
             _playerFX.SlowFlyFX.StopFeedbacks();
             // reset movement
@@ -315,6 +332,10 @@ namespace Firefly
             transform.SetPositionAndRotation(_currentNest.transform.position, _currentNest.transform.rotation);
             _slowDown = SlowDownState.Normal;
             _slowDownStamina = 1;
+
+            // fade in
+            _spriteRend.DOFade(1, .25f);
+            _uiGroup.DOFade(1, .2f);
         }
 
         public void GetCaught()

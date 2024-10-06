@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 4043413480154124934}
   - component: {fileID: 391710188881967005}
   - component: {fileID: 7636057282007704947}
+  - component: {fileID: 2771410159007622544}
   m_Layer: 5
   m_Name: FireflyUI
   m_TagString: Untagged
@@ -341,3 +342,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 511
+--- !u!225 &2771410159007622544
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220691734327170424}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
