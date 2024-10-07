@@ -262,7 +262,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 11364b3e57a70747000000008588c652
@@ -342,6 +342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c8c02fd8c353f4e8f490499f5e9c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaRotation: 90
+  _rotateInterval: 3
+  _rotateDuration: 0.5
 --- !u!1 &8486477426291440210
 GameObject:
   m_ObjectHideFlags: 0

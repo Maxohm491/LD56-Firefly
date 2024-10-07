@@ -97,6 +97,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lightIntensity: {x: 1.5, y: 3}
   _falloffStrength: {x: 0.5, y: 0.75}
+  _contactFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
   _flickerInterval: 2
   _flickerCurve:
     serializedVersion: 2
@@ -123,3 +137,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _startOnAwake: 1
+  _lightTriggerRadius: 1.8

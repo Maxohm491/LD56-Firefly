@@ -24,6 +24,8 @@ namespace Firefly
         private bool _startOnAwake = true;
 
         private Light2D _fireflyLight;
+        [SerializeField]
+        private float _lightTriggerRadius;
 
         private void Awake()
         {
@@ -65,7 +67,7 @@ namespace Firefly
         private void TriggerLightables() 
         {
             List<Collider2D> results = new();
-            Physics2D.OverlapCircle(transform.position, _fireflyLight.pointLightOuterRadius, _contactFilter, results);
+            Physics2D.OverlapCircle(transform.position, _lightTriggerRadius, _contactFilter, results);
 
             foreach (Collider2D collider in results) {
                 if (collider.gameObject.TryGetComponent<Lightable>(out var target)) {
