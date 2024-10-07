@@ -33,6 +33,7 @@ namespace Firefly
         [Tooltip("Canvas that follows player prefab")]
         [SerializeField] private GameObject _UIPrefab;
 
+
         private GameObject _light;
         private GameObject _playerCanvas;
         private CanvasGroup _uiGroup;
@@ -79,7 +80,9 @@ namespace Firefly
 
         private bool _lightOn = true;
 
-        private SpriteRenderer _spriteRend;
+        [Title("Sprite Renders")]
+        [SerializeField] private SpriteRenderer _spriteRend;
+        [SerializeField] private SpriteRenderer _reflectionRend;
 
         bool IEatable.Eatable { get { return _lightOn; } }
 
@@ -97,8 +100,6 @@ namespace Firefly
 
             var allNests = GameObject.FindGameObjectsWithTag("Nest");
             _totalNestCount = allNests.Length;
-
-            _spriteRend = GetComponentInChildren<SpriteRenderer>();
         }
 
 
@@ -120,6 +121,8 @@ namespace Firefly
         private void Update()
         {
             ModifySlowDown();
+
+            _reflectionRend.sprite = _spriteRend.sprite;
         }
 
         void FixedUpdate()
