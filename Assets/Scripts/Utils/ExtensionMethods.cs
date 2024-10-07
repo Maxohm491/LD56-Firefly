@@ -6,6 +6,12 @@ namespace Firefly.Utils
 {
     public static class ExtensionMethods
     {
+        public static bool InBound(this Vector3 v, Vector3 min, Vector3 max)
+        {
+            return min.x <= v.x && v.x <= max.x &&
+                min.y <= v.y && v.y <= max.y;
+        }
+
         public static float Dot(this Vector3 v, Vector3 u)
         {
             return v.x * u.x + v.y * u.y + v.z * u.z;

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Firefly.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -13,6 +14,7 @@ namespace Firefly.Audio
 
         [SerializeField] private AudioClip _music;
         [SerializeField] private AudioSource _bgmSource;
+        [SerializeField] private AudioSource _ambientSource;
 
         [SerializeField] private AudioSourcePool _sfxSourcePool;
         public AudioSourcePool SFXSourcePool => _sfxSourcePool;

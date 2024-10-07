@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Firefly.Utils;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -33,6 +34,8 @@ namespace Firefly
         private LineRenderer _lineRend;
         private RotateFrog _rotateBody;
 
+        private MMF_Player _frogFX;
+
         private bool InFrontOf(Vector3 position) =>
             (position - transform.position).Dot(transform.up) >= _detectRange * (position - transform.position).magnitude;
 
@@ -46,6 +49,8 @@ namespace Firefly
             _frogLight.intensity = 0;
 
             _rotateBody = GetComponentInChildren<RotateFrog>();
+
+            _frogFX = GetComponentInChildren<MMF_Player>();
         }
 
         private void OnEnable()
@@ -60,6 +65,17 @@ namespace Firefly
 
         private void Update()
         {
+            bool inScreen = Camera.main.WorldToViewportPoint(transform.position).InBound(Vector3.zero, Vector3.one);
+
+            if (_frogFX.IsPlaying && !inScreen)
+            {
+                _frogFX.StopFeedbacks();
+            }
+            else if (!_frogFX.IsPlaying && inScreen)
+            {
+                _frogFX.PlayFeedbacks();
+            }
+
             if (_detectTimer <= 0 && !_eating)
             {
                 Detect();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Firefly.Utils;
+using MoreMountains.Feedbacks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -23,6 +24,9 @@ namespace Firefly
         [SerializeField, ReadOnly]
         private bool _activated;
 
+        [SerializeField]
+        private MMF_Player _activateFX;
+
         private FireflyLight _nestLight;
 
         private Animator _nestAnim;
@@ -43,6 +47,8 @@ namespace Firefly
                     _nestLight.StartLight();
                     // propgate nest info
                     GameplayManager.Instance.OnUpdateNest.Invoke(this);
+
+                    _activateFX.PlayFeedbacks();
                 }
             }
         }

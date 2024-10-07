@@ -169,8 +169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DefaultAudioMixer>k__BackingField: {fileID: 24100000, guid: 801589902949f1d45a4ea250e643a616, type: 2}
-  _music: {fileID: 8300000, guid: 37c28d32819b98049bc8c3aa169fd10a, type: 3}
+  _music: {fileID: 8300000, guid: 41412062baadcda4ea95cb4aa5d9e2c0, type: 3}
   _bgmSource: {fileID: 1261078713}
+  _ambientSource: {fileID: 0}
   _sfxSourcePool: {fileID: 0}
 --- !u!1 &11685076
 GameObject:

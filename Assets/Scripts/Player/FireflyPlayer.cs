@@ -80,6 +80,10 @@ namespace Firefly
 
         private bool _lightOn = true;
 
+        [SerializeField]
+        private AudioSource _ambientSource;
+        [SerializeField] private float _maxAmbientVolume;
+
         [Title("Sprite Renders")]
         [SerializeField] private SpriteRenderer _spriteRend;
         [SerializeField] private SpriteRenderer _reflectionRend;
@@ -214,11 +218,15 @@ namespace Firefly
 
         private void SelectNest(int offset)
         {
+            if (offset == _activatedNests.Count) return;
+
             _currentNest.ToggleSelection(false);
             var idx = _activatedNests.FindIndex(n => n == _currentNest);
             idx = (idx + offset) % _activatedNests.Count;
             _currentNest = _activatedNests[idx];
             _currentNest.ToggleSelection(true);
+
+            _playerFX.NestSelectFX.PlayFeedbacks();
         }
 
 
@@ -282,6 +290,8 @@ namespace Firefly
                 {
                     GameplayManager.Instance.OnLevelClear.Invoke();
                 }
+
+                _ambientSource.volume = (float)_activatedNests.Count / _totalNestCount * _maxAmbientVolume;
             }
 
             // respawn when set first nest
