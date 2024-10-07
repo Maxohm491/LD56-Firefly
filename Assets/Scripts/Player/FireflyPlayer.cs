@@ -176,8 +176,14 @@ namespace Firefly
                     break;
             }
 
-            _slowSlider.value = _slowDownStamina;
-            _slowSlider.transform.position = transform.position + new Vector3(-_slowDownStamina / 2 + 0.5f, 1, 0);
+            if (_slowDownStamina != 1f) {
+                if(!_slowSlider.gameObject.activeSelf) _slowSlider.gameObject.SetActive(true);
+                _slowSlider.value = _slowDownStamina;
+                _slowSlider.transform.position = transform.position + new Vector3(-_slowDownStamina / 2 + 0.5f, 1, 0);
+            }
+            else {
+                if(_slowSlider.gameObject.activeSelf) _slowSlider.gameObject.SetActive(false);
+            }
         }
 
         public void HandleMove(InputAction.CallbackContext context)
@@ -334,6 +340,7 @@ namespace Firefly
             // go back to nest
             transform.SetPositionAndRotation(_currentNest.transform.position, _currentNest.transform.rotation);
             _slowDown = SlowDownState.Normal;
+            _slowCooldown = _slowCooldownTime;
             _slowDownStamina = 1;
 
             // fade in
