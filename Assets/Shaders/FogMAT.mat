@@ -37,10 +37,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DarkPower: 0.5
+    - _DarkThreashold: 0.1
+    - _EdgePower: 2
+    - _EdgeThreashold: 0.65
     - _FogClipEdge: 0.5
-    - _FogScrollSpeed: 1
-    - _NoiseScale: 10
+    - _FogScrollSpeed: 0.1
+    - _NoiseScale: 8
     m_Colors:
-    - _FogColor: {r: 1, g: 1, b: 1, a: 0}
-    - _FogScale: {r: 1, g: 1, b: 0, a: 0}
+    - _FogColor: {r: 0.25, g: 0.25, b: 0.25, a: 0}
+    - _FogScale: {r: 0.5, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

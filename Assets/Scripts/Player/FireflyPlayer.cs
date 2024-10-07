@@ -88,7 +88,7 @@ namespace Firefly
         [SerializeField] private SpriteRenderer _spriteRend;
         [SerializeField] private SpriteRenderer _reflectionRend;
 
-        bool IEatable.Eatable { get { return _lightOn; } }
+        bool IEatable.Eatable { get { return LightOn; } }
 
         private SlowDownState SlowDown
         {
@@ -100,6 +100,19 @@ namespace Firefly
                 _slowDown = value;
                 _playerFX.SwitchFlyMode(_slowDown == SlowDownState.Slow);
             }
+        }
+
+        public bool LightOn
+        {
+            get => _lightOn; set
+            {
+                if (_lightOn == value) return;
+
+                _lightOn = value;
+                _light.SetActive(_lightOn);
+                _playerFX.ToggleTrail(_lightOn);
+            }
+
         }
 
         private void Awake()
@@ -268,8 +281,14 @@ namespace Firefly
         {
             if (_lifeState == LifeState.Alive)
             {
-                _lightOn = !context.performed;
-                _light.SetActive(_lightOn);
+                if (context.performed)
+                {
+                    LightOn = false;
+                }
+                if (context.canceled)
+                {
+                    LightOn = true;
+                }
             }
         }
 
@@ -370,6 +389,8 @@ namespace Firefly
             // fade in
             _spriteRend.DOFade(1, .25f);
             _uiGroup.DOFade(1, .2f);
+
+            LightOn = true;
         }
 
         public void GetCaught()

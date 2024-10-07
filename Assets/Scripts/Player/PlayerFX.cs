@@ -25,6 +25,8 @@ namespace Firefly
         [SerializeField] private AnimationCurve _flyVolume;
         [SerializeField] private AnimationCurve _slowFlyVolume;
 
+        [SerializeField] private ParticleSystem _flyParticle;
+
         private float _flyTargetVolume;
         private float _slowFlyTargetVolume;
 
@@ -62,6 +64,8 @@ namespace Firefly
         {
             _flyTargetVolume = 1;
             _slowFlyTargetVolume = 0;
+
+            _flyParticle.Play();
         }
 
         public void SwitchFlyMode(bool slow)
@@ -75,6 +79,20 @@ namespace Firefly
         {
             _flyTargetVolume = 0;
             _slowFlyTargetVolume = 0;
+
+            _flyParticle.Stop();
+        }
+
+        internal void ToggleTrail(bool lightOn)
+        {
+            if (lightOn)
+            {
+                _flyParticle.Play();
+            }
+            if (!lightOn)
+            {
+                _flyParticle.Stop();
+            }
         }
     }
 }
