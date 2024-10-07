@@ -786,7 +786,7 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         Owner: {fileID: 6238411255832611106}
         DebugActive: 0
-        Sfx: {fileID: 8300000, guid: 2a06153f4fd09d749982b03340dfa299, type: 3}
+        Sfx: {fileID: 8300000, guid: 2c39540a65d603443bb92e123c102ad5, type: 3}
         RandomSfx: []
         TestPlayButton:
           ButtonText: Debug Play Sound
@@ -796,8 +796,8 @@ MonoBehaviour:
         PoolSize: 10
         UseLegacyEventsMode: 0
         StopSoundOnFeedbackStop: 1
-        MinVolume: 0.9
-        MaxVolume: 1.1
+        MinVolume: 1.5
+        MaxVolume: 1.6
         MinPitch: 0.9
         MaxPitch: 1.1
         SfxAudioMixerGroup: {fileID: 0}
@@ -863,7 +863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6201248928636224913, guid: 2d428eb1177393345af4df0bb26b1cf7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4.682708
       objectReference: {fileID: 0}
     - target: {fileID: 6201248928636224913, guid: 2d428eb1177393345af4df0bb26b1cf7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -929,7 +929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6201248928636224913, guid: 2d428eb1177393345af4df0bb26b1cf7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4.682708
       objectReference: {fileID: 0}
     - target: {fileID: 6201248928636224913, guid: 2d428eb1177393345af4df0bb26b1cf7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -995,7 +995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6201248928636224913, guid: 2d428eb1177393345af4df0bb26b1cf7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4.682708
       objectReference: {fileID: 0}
     - target: {fileID: 6201248928636224913, guid: 2d428eb1177393345af4df0bb26b1cf7, type: 3}
       propertyPath: m_LocalRotation.w
