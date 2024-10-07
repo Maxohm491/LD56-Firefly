@@ -90,6 +90,18 @@ namespace Firefly
 
         bool IEatable.Eatable { get { return _lightOn; } }
 
+        private SlowDownState SlowDown
+        {
+            get => _slowDown;
+            set
+            {
+                if (_slowDown == value) return;
+
+                _slowDown = value;
+                _playerFX.SwitchFlyMode(_slowDown == SlowDownState.Slow);
+            }
+        }
+
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
@@ -135,7 +147,7 @@ namespace Firefly
 
             // do not move when not alive
             _rigidBody.velocity = (_lifeState == LifeState.Alive && !_stopMove) ?
-                _linearSpeed * (_slowDown == SlowDownState.Slow ? _slowDownRatio : 1) * transform.up :
+                _linearSpeed * (SlowDown == SlowDownState.Slow ? _slowDownRatio : 1) * transform.up :
                 Vector2.zero;
 
             _playerCanvas.transform.position = this.transform.position;
@@ -143,15 +155,15 @@ namespace Firefly
 
         void ModifySlowDown()
         {
-            switch (_slowDown)
+            switch (SlowDown)
             {
                 case SlowDownState.Slow:
                     _slowDownStamina -= Time.fixedDeltaTime * _slowDrainRate;
                     if (_slowDownStamina <= 0)
                     {
-                        _slowDown = SlowDownState.Emptied;
-                        _playerFX.SlowFX.StopFeedbacks();
-                        _playerFX.FlyFX.PlayFeedbacks();
+                        SlowDown = SlowDownState.Emptied;
+                        //_playerFX.SlowFX.StopFeedbacks();
+                        //_playerFX.FlyFX.PlayFeedbacks();
                     }
                     break;
                 case SlowDownState.Normal:
@@ -165,7 +177,7 @@ namespace Firefly
                     _slowCooldown -= Time.fixedDeltaTime;
                     if (_slowCooldown <= 0)
                     {
-                        _slowDown = SlowDownState.Normal;
+                        SlowDown = SlowDownState.Normal;
                     }
                     break;
                 case SlowDownState.Emptied:
@@ -175,7 +187,7 @@ namespace Firefly
                     }
                     else
                     {
-                        _slowDown = SlowDownState.Normal;
+                        SlowDown = SlowDownState.Normal;
                     }
                     break;
             }
@@ -237,7 +249,8 @@ namespace Firefly
                 if (_lifeState == LifeState.Spawn)
                 {
                     _lifeState = LifeState.Alive;
-                    _playerFX.FlyFX.PlayFeedbacks();
+                    _playerFX.StartFly();
+                    //_playerFX.FlyFX.PlayFeedbacks();
                     
                     GameplayManager.Instance.OnPlayerRespawn.Invoke();
                     return;
@@ -265,17 +278,17 @@ namespace Firefly
             // Only change slowdown if alive
             if (_lifeState == LifeState.Alive)
             {
-                if (context.performed && (_slowDown == SlowDownState.Normal || _slowDown == SlowDownState.Cooldown))
+                if (context.performed && (SlowDown == SlowDownState.Normal || SlowDown == SlowDownState.Cooldown))
                 {
-                    _slowDown = SlowDownState.Slow;
-                    _playerFX.FlyFX.StopFeedbacks();
-                    _playerFX.SlowFlyFX.PlayFeedbacks();
+                    SlowDown = SlowDownState.Slow;
+                    //_playerFX.FlyFX.StopFeedbacks();
+                    //_playerFX.SlowFlyFX.PlayFeedbacks();
                 }
-                else if (context.canceled && _slowDown == SlowDownState.Slow)
+                else if (context.canceled && SlowDown == SlowDownState.Slow)
                 {
-                    _slowDown = SlowDownState.Cooldown;
-                    _playerFX.SlowFlyFX.StopFeedbacks();
-                    _playerFX.FlyFX.PlayFeedbacks();
+                    SlowDown = SlowDownState.Cooldown;
+                    //_playerFX.SlowFlyFX.StopFeedbacks();
+                    //_playerFX.FlyFX.PlayFeedbacks();
                     _slowCooldown = _slowCooldownTime;
                 }
             }
@@ -329,8 +342,9 @@ namespace Firefly
             _spriteRend.DOFade(0, .2f);
             _uiGroup.DOFade(0, .2f);
 
-            _playerFX.FlyFX.StopFeedbacks();
-            _playerFX.SlowFlyFX.StopFeedbacks();
+            //_playerFX.FlyFX.StopFeedbacks();
+            //_playerFX.SlowFlyFX.StopFeedbacks();
+            _playerFX.StopFly();
             // reset movement
             _turning = Vector2.zero;
             // TODO: potential animations before spawn
@@ -349,7 +363,7 @@ namespace Firefly
             _lifeState = LifeState.Spawn;
             // go back to nest
             transform.SetPositionAndRotation(_currentNest.transform.position, _currentNest.transform.rotation);
-            _slowDown = SlowDownState.Normal;
+            SlowDown = SlowDownState.Normal;
             _slowCooldown = _slowCooldownTime;
             _slowDownStamina = 1;
 

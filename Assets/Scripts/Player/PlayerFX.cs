@@ -12,12 +12,21 @@ namespace Firefly
     {
         [field: SerializeField] public MMF_Player DeathFX { get; private set; }
         [field: SerializeField] public MMF_Player SlowFX { get; private set; }
-        [field: SerializeField] public MMF_Player FlyFX { get; private set; }
-        [field: SerializeField] public MMF_Player SlowFlyFX { get; private set; }
+        //[field: SerializeField] public MMF_Player FlyFX { get; private set; }
+        //[field: SerializeField] public MMF_Player SlowFlyFX { get; private set; }
         [field: SerializeField] public MMF_Player ZoomOutFX { get; private set; }
         [field: SerializeField] public MMF_Player ZoomInFX { get; private set; }
         [field: SerializeField] public MMF_Player NestSelectFX { get; private set; }
 
+
+        [SerializeField] private AudioSource _flySource;
+        [SerializeField] private AudioSource _slowFlySource;
+
+        [SerializeField] private AnimationCurve _flyVolume;
+        [SerializeField] private AnimationCurve _slowFlyVolume;
+
+        private float _flyTargetVolume;
+        private float _slowFlyTargetVolume;
 
         private void OnEnable()
         {
@@ -31,6 +40,12 @@ namespace Firefly
             GameplayManager.Instance.OnExitMapMode.RemoveListener(HandleZoomIn);
         }
 
+        private void Update()
+        {
+            _flySource.volume = _flyVolume.Evaluate(Mathf.Sin(Time.time)) * _flyTargetVolume;
+            _slowFlySource.volume = _slowFlyVolume.Evaluate(Mathf.Sin(Time.time)) * _slowFlyTargetVolume;
+        }
+
         private void HandleZoomIn()
         {
             ZoomInFX?.PlayFeedbacks();
@@ -41,6 +56,25 @@ namespace Firefly
         {
             ZoomOutFX?.PlayFeedbacks();
             AudioManager.Instance.DefaultAudioMixer.DOSetFloat("AmbientVolume", -10, .5f);
+        }
+
+        public void StartFly()
+        {
+            _flyTargetVolume = 1;
+            _slowFlyTargetVolume = 0;
+        }
+
+        public void SwitchFlyMode(bool slow)
+        {
+            var target = Mathf.Max(_flyTargetVolume, _slowFlyTargetVolume);
+            _flyTargetVolume = slow ? 0 : target;
+            _slowFlyTargetVolume = slow ? target : 0;
+        }
+
+        public void StopFly()
+        {
+            _flyTargetVolume = 0;
+            _slowFlyTargetVolume = 0;
         }
     }
 }
