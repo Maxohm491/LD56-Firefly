@@ -31,6 +31,9 @@ namespace Firefly
         public UnityEvent OnExitMapMode { get; private set; } = new UnityEvent();
         public UnityEvent OnPlayerRespawn { get; private set; } = new UnityEvent();
         public UnityEvent OnLevelClear { get; private set; } = new UnityEvent();
+
+        public UnityEvent<string> OnDisplayInfo { get; private set; } = new UnityEvent<string>();
+        public UnityEvent OnHideInfo { get; private set; } = new UnityEvent();
         #endregion
 
         public override void Initialize()

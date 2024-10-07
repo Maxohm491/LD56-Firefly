@@ -15,6 +15,8 @@ namespace Firefly
         [SerializeField] private CanvasGroup _mapUIGroup;
         [SerializeField] private CanvasGroup _spawnUIGroup;
 
+        [SerializeField] private TextMeshProUGUI _infoText;
+
         private bool _mapUIEnable = false;
 
         [SerializeField, ReadOnly]
@@ -38,6 +40,9 @@ namespace Firefly
             GameplayManager.Instance.OnPlayerRespawn.AddListener(HideSpawnUI);
 
             GameplayManager.Instance.OnUpdateNest.AddListener(RecordNest);
+
+            GameplayManager.Instance.OnDisplayInfo.AddListener(DisplayInfo);
+            GameplayManager.Instance.OnHideInfo.AddListener(HideInfo);
         }
 
         private void OnDisable()
@@ -48,6 +53,20 @@ namespace Firefly
             GameplayManager.Instance.OnPlayerRespawn.RemoveListener(HideSpawnUI);
 
             GameplayManager.Instance.OnUpdateNest.RemoveListener(RecordNest);
+
+            GameplayManager.Instance.OnDisplayInfo.RemoveListener(DisplayInfo);
+            GameplayManager.Instance.OnHideInfo.RemoveListener(HideInfo);
+        }
+
+        private void HideInfo()
+        {
+            _infoText.DOFade(0, 1f);
+        }
+
+        private void DisplayInfo(string text)
+        {
+            _infoText.text = text;
+            _infoText.DOFade(1, 1f);
         }
 
         private void RecordNest(Nest nest)
